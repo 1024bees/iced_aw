@@ -81,6 +81,12 @@ mod platform {
     #[cfg(feature = "grid")]
     pub use {crate::graphics::grid, grid::Grid};
 
+
+
+    #[doc(no_inline)]
+    #[cfg(feature = "menu")]
+    pub use {crate::graphics::menu, menu::Menu};
+
     #[doc(no_inline)]
     #[cfg(feature = "modal")]
     pub use {crate::graphics::modal, modal::Modal};

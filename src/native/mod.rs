@@ -32,10 +32,16 @@ pub mod icon_text;
 #[cfg(feature = "icon_text")]
 pub use icon_text::IconText;
 
+
 #[cfg(feature = "grid")]
 pub mod grid;
 #[cfg(feature = "grid")]
 pub use grid::Grid;
+
+#[cfg(feature = "menu")]
+pub mod menu;
+#[cfg(feature = "menu")]
+pub use menu::Menu;
 
 #[cfg(feature = "modal")]
 pub mod modal;
