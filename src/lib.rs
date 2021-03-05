@@ -78,8 +78,13 @@ mod platform {
     pub use {crate::graphics::floating_button, floating_button::FloatingButton};
 
     #[doc(no_inline)]
+<<<<<<< HEAD
     #[cfg(feature = "grid")]
     pub use {crate::graphics::grid, grid::Grid};
+=======
+    #[cfg(feature = "menu")]
+    pub use {crate::graphics::menu, menu::Menu};
+>>>>>>> afbc0b6... Implement first draft of a Menu widget
 
     #[doc(no_inline)]
     #[cfg(feature = "modal")]
