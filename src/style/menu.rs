@@ -109,8 +109,8 @@ impl StyleSheet for Default {
         let active = self.active();
 
         Style {
-            label_background: Some(Background::Color([0.9, 0.9, 0.9].into())),
-            overlay_label_background: Some(Background::Color([0.9, 0.9, 0.9].into())),
+            label_background: Some(Background::Color([0.4, 0.4, 0.8].into())),
+            overlay_label_background: Some(Background::Color([0.4, 0.4, 0.8].into())),
 
             ..active
         }
