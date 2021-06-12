@@ -107,6 +107,13 @@ where
         self.sections.push(section.into());
         self
     }
+
+    /// Sets the style of the [`Menu`](Menu).
+    pub fn style(mut self, style: impl Into<Renderer::Style>) -> Self {
+        self.style = style.into();
+        self
+    }
+
 }
 
 impl<'a, Message, Renderer> Widget<Message, Renderer> for Menu<'a, Message, Renderer>
