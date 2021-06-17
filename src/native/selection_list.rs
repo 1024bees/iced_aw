@@ -3,7 +3,7 @@ use super::overlay::list_menu::{self, ListMenu};
 use iced_native::{
     event::{self, Event},
     layout, mouse, overlay, scrollable, text, touch, Clipboard, Element, Hasher, Layout, Length,
-    Point, Rectangle, Size, Widget,
+    Padding, Point, Rectangle, Size, Widget,
 };
 
 /// A widget for selecting a single value from a dynamic scrollable list of options.
@@ -152,10 +152,8 @@ where
     fn layout(&self, renderer: &Renderer, limits: &layout::Limits) -> layout::Node {
         use std::f32;
 
-        let limits = limits
-            .width(self.width)
-            .height(Length::Shrink)
-            .pad(f32::from(self.padding));
+        let pad = Padding::from(self.padding);
+        let limits = limits.width(self.width).height(Length::Shrink).pad(pad);
 
         let text_size = self.text_size.unwrap_or_else(|| renderer.default_size());
 
@@ -186,7 +184,7 @@ where
                 f32::from(text_size),
             );
 
-            limits.resolve(intrinsic).pad(f32::from(self.padding))
+            limits.resolve(intrinsic).pad(pad)
         };
 
         layout::Node::new(size)

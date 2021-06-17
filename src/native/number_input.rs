@@ -8,8 +8,8 @@ use iced_native::{
     layout::{Limits, Node},
     mouse, row, text,
     text_input::{self, cursor, Value},
-    Align, Clipboard, Column, Container, Element, Hasher, Layout, Length, Point, Rectangle, Row,
-    Size, Text, TextInput, Widget,
+    Align, Clipboard, Column, Container, Element, Hasher, Layout, Length, Padding, Point,
+    Rectangle, Row, Size, Text, TextInput, Widget,
 };
 use num_traits::{Num, NumAssignOps};
 use std::fmt::Display;
@@ -245,7 +245,7 @@ where
     }
 
     fn layout(&self, renderer: &Renderer, limits: &Limits) -> Node {
-        let padding = f32::from(self.padding);
+        let padding = Padding::from(self.padding);
         let limits = limits
             .width(self.width())
             .height(Length::Shrink)

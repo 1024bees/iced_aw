@@ -7,8 +7,8 @@ use std::marker::PhantomData;
 use iced_native::{
     event,
     layout::{self, Limits, Node},
-    overlay, Align, Clipboard, Element, Event, Hasher, Layout, Length, Point, Rectangle, Size,
-    Widget,
+    overlay, Align, Clipboard, Element, Event, Hasher, Layout, Length, Padding, Point, Rectangle,
+    Size, Widget,
 };
 
 /// A container that distributes its contents horizontally.
@@ -303,11 +303,12 @@ where
     #[allow(clippy::inline_always)]
     #[inline(always)]
     fn inner_layout(&self, renderer: &Renderer, limits: &Limits) -> Node {
-        let padding = f32::from(self.padding);
+        let padding = Padding::from(self.padding);
         let spacing = f32::from(self.spacing);
         let line_spacing = f32::from(self.line_spacing);
         #[allow(clippy::cast_precision_loss)] // TODO: possible precision loss
         let line_minimal_length = self.line_minimal_length as f32;
+
         let limits = limits
             .pad(padding)
             .width(self.width)
@@ -316,10 +317,10 @@ where
             .max_height(self.max_height);
         let max_width = limits.max().width;
 
-        let mut curse = padding;
-        let mut deep_curse = padding;
+        let mut curse = padding.left as f32;
+        let mut deep_curse = padding.left as f32;
         let mut current_line_height = line_minimal_length;
-        let mut max_main = curse;
+        let mut max_main = curse as f32;
         let mut align = vec![];
         let mut start = 0;
         let mut end = 0;
@@ -344,8 +345,8 @@ where
                     start = end;
                     end += 1;
                     current_line_height = line_minimal_length;
-                    node.move_to(Point::new(padding, deep_curse));
-                    curse = offset_init + padding;
+                    node.move_to(Point::new(padding.left as f32, deep_curse as f32));
+                    curse = offset_init + padding.left as f32;
                 } else {
                     node.move_to(Point::new(curse, deep_curse));
                     curse = offset;
@@ -368,8 +369,8 @@ where
             });
         });
         let (width, height) = (
-            max_main - padding,
-            deep_curse - padding + current_line_height,
+            max_main - padding.left as f32,
+            deep_curse - padding.left as f32 + current_line_height,
         );
         let size = limits.resolve(Size::new(width, height));
 
@@ -397,7 +398,7 @@ where
     #[allow(clippy::inline_always)]
     #[inline(always)]
     fn inner_layout(&self, renderer: &Renderer, limits: &Limits) -> Node {
-        let padding = f32::from(self.padding);
+        let padding = Padding::from(self.padding);
         let spacing = f32::from(self.spacing);
         let line_spacing = f32::from(self.line_spacing);
         #[allow(clippy::cast_precision_loss)] // TODO: possible precision loss
@@ -410,8 +411,8 @@ where
             .max_height(self.max_height);
         let max_height = limits.max().height;
 
-        let mut curse = padding;
-        let mut wide_curse = padding;
+        let mut curse = padding.left as f32;
+        let mut wide_curse = padding.left as f32;
         let mut current_line_width = line_minimal_length;
         let mut max_main = curse;
         let mut align = vec![];
@@ -438,8 +439,8 @@ where
                     start = end;
                     end += 1;
                     current_line_width = line_minimal_length;
-                    node.move_to(Point::new(wide_curse, padding));
-                    curse = offset_init + padding;
+                    node.move_to(Point::new(wide_curse, padding.left as f32));
+                    curse = offset_init + padding.left as f32;
                 } else {
                     node.move_to(Point::new(wide_curse, curse));
                     end += 1;
@@ -463,8 +464,8 @@ where
         });
 
         let (width, height) = (
-            wide_curse - padding + current_line_width,
-            max_main - padding,
+            wide_curse - padding.left as f32 + current_line_width,
+            max_main - padding.left as f32,
         );
         let size = limits.resolve(Size::new(width, height));
 

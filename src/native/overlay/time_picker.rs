@@ -23,7 +23,7 @@ use iced_native::{
     button, column, container, event, keyboard,
     layout::{self, Limits},
     mouse, overlay, row, text, touch, Align, Button, Clipboard, Column, Container, Element, Event,
-    Layout, Length, Point, Row, Text, Widget,
+    Layout, Length, Padding, Point, Row, Text, Widget,
 };
 
 /// The padding around the elements.
@@ -495,8 +495,9 @@ where
         bounds: iced_graphics::Size,
         position: Point,
     ) -> iced_native::layout::Node {
+        let pad = Padding::from(PADDING as u16);
         let limits = Limits::new(Size::ZERO, bounds)
-            .pad(f32::from(PADDING))
+            .pad(pad)
             .width(Length::Fill)
             .height(Length::Fill)
             .max_width(300)

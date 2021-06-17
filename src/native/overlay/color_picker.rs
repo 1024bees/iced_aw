@@ -8,7 +8,7 @@ use iced_native::{
     button, column, event, keyboard,
     layout::{self, Limits},
     mouse, overlay, row, text, text_input, touch, Align, Button, Clipboard, Color, Column, Element,
-    Event, Layout, Length, Point, Rectangle, Row, Size, Text, Widget,
+    Event, Layout, Length, Padding, Point, Rectangle, Row, Size, Text, Widget,
 };
 
 use crate::{
@@ -531,8 +531,9 @@ where
             (300, 600)
         };
 
+        let pad = Padding::from(PADDING as u16);
         let limits = Limits::new(Size::ZERO, bounds)
-            .pad(f32::from(PADDING))
+            .pad(pad)
             .width(Length::Fill)
             .height(Length::Fill)
             .max_width(max_width)

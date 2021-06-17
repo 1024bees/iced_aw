@@ -3,7 +3,9 @@
 //! *This API requires the following crate features to be activated: card*
 use std::hash::Hash;
 
-use iced_native::{event, touch, Clipboard, Element, Event, Layout, Length, Point, Size, Widget};
+use iced_native::{
+    event, touch, Clipboard, Element, Event, Layout, Length, Padding, Point, Size, Widget,
+};
 use iced_native::{mouse, Align};
 
 use crate::core::renderer::DrawEnvironment;
@@ -373,11 +375,8 @@ fn head_node<'a, Message, Renderer>(
 where
     Renderer: self::Renderer,
 {
-    let mut limits = limits
-        .loose()
-        .width(width)
-        .height(head.height())
-        .pad(padding);
+    let pad = Padding::from(padding as u16);
+    let mut limits = limits.loose().width(width).height(head.height()).pad(pad);
 
     let close_size = close_size.unwrap_or_else(|| renderer.default_size());
     let mut close = if on_close {
@@ -403,7 +402,7 @@ where
     }
 
     iced_native::layout::Node::with_children(
-        size.pad(padding),
+        size.pad(pad),
         match close {
             Some(node) => vec![head, node],
             None => vec![head],
@@ -422,12 +421,13 @@ fn body_node<'a, Message, Renderer>(
 where
     Renderer: self::Renderer,
 {
+    let pad = Padding::from(padding as u16);
     let limits = limits
         .clone()
         .loose()
         .width(width)
         .height(body.height())
-        .pad(padding);
+        .pad(pad);
 
     let mut body = body.layout(renderer, &limits);
     let size = limits.resolve(body.size());
@@ -435,7 +435,7 @@ where
     body.move_to(Point::new(padding, padding));
     body.align(Align::Start, Align::Start, size);
 
-    iced_native::layout::Node::with_children(size.pad(padding), vec![body])
+    iced_native::layout::Node::with_children(size.pad(pad), vec![body])
 }
 
 /// Calculates the layout of the foot.
@@ -449,12 +449,13 @@ fn foot_node<'a, Message, Renderer>(
 where
     Renderer: self::Renderer,
 {
+    let pad = Padding::from(padding as u16);
     let limits = limits
         .clone()
         .loose()
         .width(width)
         .height(foot.height())
-        .pad(padding);
+        .pad(pad);
 
     let mut foot = foot.layout(renderer, &limits);
     let size = limits.resolve(foot.size());
@@ -462,7 +463,7 @@ where
     foot.move_to(Point::new(padding, padding));
     foot.align(Align::Start, Align::Center, size);
 
-    iced_native::layout::Node::with_children(size.pad(padding), vec![foot])
+    iced_native::layout::Node::with_children(size.pad(pad), vec![foot])
 }
 
 /// The renderer of a [`Card`](Card).
