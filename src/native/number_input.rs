@@ -527,7 +527,14 @@ where
                 }
             }
         } else {
-            event::Status::Ignored
+            self.content.on_event(
+                event,
+                content,
+                cursor_position,
+                renderer,
+                clipboard,
+                messages,
+            )
         }
     }
 }
