@@ -7,8 +7,7 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-iced =  { git = "https://github.com/hecrj/iced", rev = "90fee3a9237e71967eb0a63d8cef4f8ce1e5d2b5"} 
-
+iced = { git = "https://github.com/hecrj/iced", rev ="06517aa7e83b92f22795046bfd1f78402285d62f", features = ["tokio", "canvas"] }
 
 
 
