@@ -407,7 +407,14 @@ where
                                 }
                             }
                             cursor::State::Selection { start, end } => {
-                                new_val.replace_range(start..end, &c.to_string())
+                                if (0..new_val.len()).contains(&start)
+                                    && (0..new_val.len()).contains(&end)
+                                {
+                                    new_val.replace_range(
+                                        if start > end { end..start } else { start..end },
+                                        &c.to_string(),
+                                    )
+                                }
                             }
                         }
 
@@ -527,14 +534,17 @@ where
                 }
             }
         } else {
-            self.content.on_event(
-                event,
-                content,
-                cursor_position,
-                renderer,
-                clipboard,
-                messages,
-            )
+            match event {
+                Event::Keyboard(_) => event::Status::Ignored,
+                _ => self.content.on_event(
+                    event,
+                    content,
+                    cursor_position,
+                    renderer,
+                    clipboard,
+                    messages,
+                ),
+            }
         }
     }
 }
