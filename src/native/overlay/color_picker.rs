@@ -666,7 +666,7 @@ where
             cursor_position,
             renderer,
             clipboard,
-            &mut fake_messages,
+            messages,
         );
 
         let submit_button_layout = block2_children
