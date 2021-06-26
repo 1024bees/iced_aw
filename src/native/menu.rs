@@ -132,7 +132,7 @@ where
     fn layout(&self, renderer: &Renderer, limits: &iced_native::layout::Limits) -> layout::Node {
         let limits = limits.clone().width(self.width()).height(self.height());
 
-        let padding = Padding::from(self.padding);
+        let padding = Padding::from(self.padding as u16);
         let width = Row::<Message, Renderer>::new()
             .width(Length::Fill)
             .layout(renderer, &limits)
