@@ -7,7 +7,7 @@ use iced_graphics::{Point, Size};
 use iced_native::{
     event,
     layout::{self, Limits},
-    mouse, overlay, touch, Clipboard, Event, Layout, Length,
+    mouse, overlay, touch, Clipboard, Event, Layout, Length, Padding
 };
 
 use crate::{
@@ -264,8 +264,10 @@ fn layout_entries<'a, Message, Renderer: iced_native::Renderer>(
     path: &[usize],
     nodes: &mut Vec<layout::Node>,
 ) {
+
+    let padding_obj = Padding::from(padding as u16);
     let entry_limits = Limits::new(Size::ZERO, bounds)
-        .pad(padding)
+        .pad(padding_obj)
         .width(Length::Shrink)
         .height(Length::Shrink);
 

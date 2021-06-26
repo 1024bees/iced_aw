@@ -6,7 +6,7 @@ use std::hash::Hash;
 use iced_graphics::{Point, Size};
 use iced_native::{
     event, layout, mouse, overlay, row, touch, Clipboard, Element, Event, Layout, Length, Row,
-    Widget,
+    Widget, Padding
 };
 
 use crate::core::renderer::DrawEnvironment;
@@ -132,13 +132,14 @@ where
     fn layout(&self, renderer: &Renderer, limits: &iced_native::layout::Limits) -> layout::Node {
         let limits = limits.clone().width(self.width()).height(self.height());
 
+        let padding = Padding::from(self.padding);
         let width = Row::<Message, Renderer>::new()
             .width(Length::Fill)
             .layout(renderer, &limits)
             .bounds()
             .width;
 
-        let section_limits = limits.clone().pad(self.padding).width(Length::Shrink);
+        let section_limits = limits.clone().pad(padding).width(Length::Shrink);
 
         let mut entries: Vec<layout::Node> = self
             .sections
